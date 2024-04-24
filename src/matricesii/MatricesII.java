@@ -26,6 +26,8 @@ public class MatricesII {
                 System.out.println("Matriz adjunta:");
                 double[][] adjunta = transponerMatriz(cofactores);
                 imprimirMatriz(adjunta);
+                System.out.println("");
+                double[][] inversa= inversa(adjunta,determinante);
 
             } else {
                 System.out.println("LA MATRIZ NO TIENE INVERSA.");
@@ -134,10 +136,36 @@ public class MatricesII {
         int filas = matriz.length;
         int columnas = matriz[0].length;
         for (int i = 0; i < filas; i++) {
+            System.out.print("|");
             for (int j = 0; j < columnas; j++) {
-                System.out.print(matriz[i][j] + " ");
+                System.out.print(matriz[i][j] + "  ");
             }
+            System.out.print("|");
             System.out.println();
         }
+    }
+
+    public static double[][] inversa(double[][] matriz,double determinante) {
+        int filas = matriz.length;
+        int columnas = matriz[0].length;
+        double[][] inversa = new double[columnas][filas];
+        int multi;
+        for (int i = 0; i < filas; i++) {
+            System.out.print("|");
+            for (int j = 0; j < columnas; j++) {
+                Fraccion f1 = new Fraccion(1, (int)determinante);
+                Fraccion f2 = new Fraccion((int)matriz [i][j], 1);
+                Fraccion multiplicacion = f1.multiplicar(f2);
+                if(matriz[i][j]== 0){
+                    System.out.print(" 0");
+                }else{
+                    System.out.print(multiplicacion+"  ");
+                }
+                
+            }
+            System.out.println("|");
+        }
+
+        return inversa;
     }
 }
