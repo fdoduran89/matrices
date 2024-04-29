@@ -1,40 +1,63 @@
 package matricesii;
 
 import java.util.Scanner;
+import static matricesii.Multiplicacion.MatrizC;
 
 public class MatricesII {
 
     public static void main(String[] args) {
+        
+        int filas =0,columnas=0;
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese el número de filas de la matriz:");
-        int filas = scanner.nextInt();
-        System.out.println("Ingrese el número de columnas de la matriz:");
-        int columnas = scanner.nextInt();
+        int op = 0;
+        System.out.println("Por favor ingrese la opción");
+        System.out.println("1.Factores\n2. Multiplicación");
+        op = scanner.nextInt();
+        switch (op) {
+            case 1:
+                System.out.println("Ingrese el número de filas de la matriz:");
+                filas = scanner.nextInt();
+                System.out.println("Ingrese el número de columnas de la matriz:");
+                columnas = scanner.nextInt();
 
-        if (filas == columnas) {
-            System.out.println("LA MATRIZ ES CUADRADA, POR TANTO, PUEDE TENER INVERSA.");
+                if (filas == columnas) {
+                    System.out.println("LA MATRIZ ES CUADRADA, POR TANTO, PUEDE TENER INVERSA.");
 
-            double[][] matriz = leerMatriz(filas, columnas);
-            double determinante = calcularDeterminante(matriz);
-            if (determinante != 0) {
+                    double[][] matriz = leerMatriz(filas, columnas);
+                    double determinante = calcularDeterminante(matriz);
+                    if (determinante != 0) {
 
-                System.out.println("El determinante de la matriz es: " + determinante);
-                System.out.println("Matriz de cofactores:");
-                double[][] cofactores = calcularCofactores(matriz);
-                imprimirMatriz(cofactores);
-                System.out.println("Matriz adjunta:");
-                double[][] adjunta = transponerMatriz(cofactores);
-                imprimirMatriz(adjunta);
-                System.out.println("");
-                double[][] inversa= inversa(adjunta,determinante);
+                        System.out.println("El determinante de la matriz es: " + determinante);
+                        System.out.println("Matriz de cofactores:");
+                        double[][] cofactores = calcularCofactores(matriz);
+                        imprimirMatriz(cofactores);
+                        System.out.println("Matriz adjunta:");
+                        double[][] adjunta = transponerMatriz(cofactores);
+                        imprimirMatriz(adjunta);
+                        System.out.println("");
+                        double[][] inversa = inversa(adjunta, determinante);
 
-            } else {
-                System.out.println("LA MATRIZ NO TIENE INVERSA.");
-            }
-        } else {
-            System.out.println("LA MATRIZ ES RECTANGULAR Y NO TIENE INVERSA.");
+                    } else {
+                        System.out.println("LA MATRIZ NO TIENE INVERSA.");
+                    }
+                } else {
+                    System.out.println("LA MATRIZ ES RECTANGULAR Y NO TIENE INVERSA.");
+                }
+
+                break;
+            case 2:
+                System.out.println("Ingrese el número de filas de la matriz:");
+                filas = scanner.nextInt();
+                System.out.println("Ingrese el número de columnas de la matriz:");
+                columnas = scanner.nextInt();
+                
+                double[][] matrizA = leerMatriz(filas, columnas);
+                double[][] matrizB = leerMatriz(filas, columnas);
+                double[][] matrizC = MatrizC(matrizA, matrizB, filas, columnas);
+                imprimirMatriz(matrizC);
         }
+
     }
 
     public static double[][] leerMatriz(int filas, int columnas) {
@@ -145,7 +168,7 @@ public class MatricesII {
         }
     }
 
-    public static double[][] inversa(double[][] matriz,double determinante) {
+    public static double[][] inversa(double[][] matriz, double determinante) {
         int filas = matriz.length;
         int columnas = matriz[0].length;
         double[][] inversa = new double[columnas][filas];
@@ -153,15 +176,15 @@ public class MatricesII {
         for (int i = 0; i < filas; i++) {
             System.out.print("|");
             for (int j = 0; j < columnas; j++) {
-                Fraccion f1 = new Fraccion(1, (int)determinante);
-                Fraccion f2 = new Fraccion((int)matriz [i][j], 1);
+                Fraccion f1 = new Fraccion(1, (int) determinante);
+                Fraccion f2 = new Fraccion((int) matriz[i][j], 1);
                 Fraccion multiplicacion = f1.multiplicar(f2);
-                if(matriz[i][j]== 0){
+                if (matriz[i][j] == 0) {
                     System.out.print(" 0");
-                }else{
-                    System.out.print(multiplicacion+"  ");
+                } else {
+                    System.out.print(multiplicacion + "  ");
                 }
-                
+
             }
             System.out.println("|");
         }
