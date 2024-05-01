@@ -1,13 +1,15 @@
 package matricesii;
 
 import java.util.Scanner;
-import static matricesii.Multiplicacion.MatrizC;
+import static matricesii.Multiplicacion.imprimirMatrizC;
+import static matricesii.Multiplicacion.multiplicarMatrices;
+import java.text.Normalizer;
 
 public class MatricesII {
 
     public static void main(String[] args) {
-        
-        int filas =0,columnas=0;
+
+        int filas = 0, columnas = 0;
 
         Scanner scanner = new Scanner(System.in);
         int op = 0;
@@ -47,15 +49,24 @@ public class MatricesII {
 
                 break;
             case 2:
-                System.out.println("Ingrese el número de filas de la matriz:");
-                filas = scanner.nextInt();
-                System.out.println("Ingrese el número de columnas de la matriz:");
-                columnas = scanner.nextInt();
-                
-                double[][] matrizA = leerMatriz(filas, columnas);
-                double[][] matrizB = leerMatriz(filas, columnas);
-                double[][] matrizC = MatrizC(matrizA, matrizB, filas, columnas);
-                imprimirMatriz(matrizC);
+                System.out.println("Ingrese el número de filas de la matriz A:");
+                int filasA = scanner.nextInt();
+                System.out.println("Ingrese el número de columnas de la matriz A:");
+                int columnasA = scanner.nextInt();
+                System.out.println("Ingrese el número de filas de la matriz B:");
+                int filasB = scanner.nextInt();
+                System.out.println("Ingrese el número de columnas de la matriz B:");
+                int columnasB = scanner.nextInt();
+                if (columnasA != filasB) {
+                    System.out.println("No se puede hacer la multiplicación A x B.");
+                } else {
+                    System.out.println("Matriz A:");
+                    double[][] matrizA = leerMatriz(filasA, columnasA);
+                    System.out.println("Matriz B");
+                    double[][] matrizB = leerMatriz(filasB, columnasB);
+                    double[][] matrizC = multiplicarMatrices(matrizA, matrizB);
+                    imprimirMatrizC(matrizC, filasA, columnasB);
+                }
         }
 
     }

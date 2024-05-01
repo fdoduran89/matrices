@@ -5,33 +5,35 @@ public class Multiplicacion {
     private double[][] matrizC;
 
     public Multiplicacion(double[][] matrizA, double[][] matrizB) {
-        this.matrizC = matrizA;
+        this.matrizC = matrizC;
     }
 
-    public static double[][] MatrizC(double[][] matrizA, double[][] matrizB, int filas, int columnas) {
-        double sumatoria = 0;
-        double[][] matrizC = new double[filas][columnas];
+        // Método para multiplicar dos matrices
+    public static double[][] multiplicarMatrices(double[][] matrizA, double[][] matrizB) {
+        int filasA = matrizA.length;
+        int columnasA = matrizA[0].length;
+        int columnasB = matrizB[0].length;
+        double[][] resultado = new double[filasA][columnasB];
 
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                if (j == 0) {
-                    sumatoria = (matrizA[i][0] * matrizB[0][0]) + (matrizA[i][1] * matrizB[1][0]) + (matrizA[i][2] * matrizB[2][0]);
-                    matrizC[i][j] = sumatoria;
-                }
-
-                if (j == 1) {
-                    sumatoria = (matrizA[i][0] * matrizB[0][1]) + (matrizA[i][1] * matrizB[1][1]) + (matrizA[i][2] * matrizB[2][1]);
-                    matrizC[i][j] = sumatoria;
-                }
-
-                if (j == 2) {
-                    sumatoria = (matrizA[i][0] * matrizB[0][2]) + (matrizA[i][1] * matrizB[1][2]) + (matrizA[i][2] * matrizB[2][2]);
-                    matrizC[i][j] = sumatoria;
+        for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < columnasB; j++) {
+                for (int k = 0; k < columnasA; k++) {
+                    resultado[i][j] += matrizA[i][k] * matrizB[k][j];
                 }
             }
         }
 
-        return matrizC;
+        return resultado;
     }
-
+    
+            public static void imprimirMatrizC(double[][] matriz,int fil,int col) {
+        for (int i = 0; i < fil; i++) {
+            System.out.print("|");
+            for (int j = 0; j < col; j++) {
+                System.out.print(matriz[i][j] + "  ");
+            }
+            System.out.print("|");
+            System.out.println();
+        }
+    }
 }
