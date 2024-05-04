@@ -4,6 +4,9 @@ import java.util.Scanner;
 import static matricesii.Multiplicacion.imprimirMatrizC;
 import static matricesii.Multiplicacion.multiplicarMatrices;
 import java.text.Normalizer;
+import static matricesii.Multiplicacion.MultiFracc;
+import static matricesii.Multiplicacion.imprimirMatrizF;
+import static matricesii.Multiplicacion.leerMatrizFac;
 
 public class MatricesII {
 
@@ -14,7 +17,7 @@ public class MatricesII {
         Scanner scanner = new Scanner(System.in);
         int op = 0;
         System.out.println("Por favor ingrese la opción");
-        System.out.println("1.Factores\n2. Multiplicación");
+        System.out.println("1.Factores\n2. Multiplicación\n3. Multiplica fracción");
         op = scanner.nextInt();
         switch (op) {
             case 1:
@@ -66,6 +69,26 @@ public class MatricesII {
                     double[][] matrizB = leerMatriz(filasB, columnasB);
                     double[][] matrizC = multiplicarMatrices(matrizA, matrizB);
                     imprimirMatrizC(matrizC, filasA, columnasB);
+                }
+                                break;
+            case 3:
+                System.out.println("Ingrese el número de filas de la matriz A:");
+                filasA = scanner.nextInt();
+                System.out.println("Ingrese el número de columnas de la matriz A:");
+                columnasA = scanner.nextInt();
+                System.out.println("Ingrese el número de filas de la matriz B:");
+                filasB = scanner.nextInt();
+                System.out.println("Ingrese el número de columnas de la matriz B:");
+                columnasB = scanner.nextInt();
+                if (columnasA != filasB) {
+                    System.out.println("No se puede hacer la multiplicación A x B.");
+                } else {
+                    System.out.println("Matriz A:");
+                    Fraccion[][] matrizA = leerMatrizFac(filasA, columnasA);
+                    System.out.println("Matriz B");
+                    Fraccion [][] matrizB = leerMatrizFac(filasB, columnasB);
+                    Fraccion [][] matrizC = MultiFracc(matrizA, matrizB);
+                    imprimirMatrizF(matrizC, filasA, columnasB);
                 }
         }
 
@@ -183,7 +206,6 @@ public class MatricesII {
         int filas = matriz.length;
         int columnas = matriz[0].length;
         double[][] inversa = new double[columnas][filas];
-        int multi;
         for (int i = 0; i < filas; i++) {
             System.out.print("|");
             for (int j = 0; j < columnas; j++) {
